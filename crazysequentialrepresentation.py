@@ -18,8 +18,6 @@ for (filename, seed) in [("csrup.txt", [1, 2, 3, 4, 5, 6, 7, 8, 9]), ("csrdown.t
                 queue[queuelevel - 1].add(dumps(temp))
 
     # Now, the other operators
-    for i in queue[9]:
-        print loads(i)
     for queuelevel in xrange(9, 1, -1):
         for i in queue[queuelevel]:
             i = loads(deepcopy(i))
