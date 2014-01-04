@@ -4,8 +4,7 @@ from math import log10
 
 upperlimit = 1000000
 
-for (outputfilename, queue) in [("csrup.txt", [dumps(range(1,4))]), ("csrdown.txt", [dumps(range(3,0,-1))])]:
-#for (outputfilename, queue) in [("csrup.txt", [dumps(range(1,10))]), ("csrdown.txt", [dumps(range(9,0,-1))])]:
+for (outputfilename, queue) in [("csrup.txt", [dumps(range(1,10))]), ("csrdown.txt", [dumps(range(9,0,-1))])]:
 
     path = {}
     i = 0
