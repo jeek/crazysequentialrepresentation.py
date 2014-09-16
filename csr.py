@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-upperlimit = 10000000
+upperlimit = 1000000000
 maxcrazy = 9
 
 from math import log10 as log
@@ -179,7 +179,7 @@ for (queue, file) in queues:
                    if abs(temp[i + 1]) * log(abs(temp[i].denominator)) / log(10) <= log(upperlimit) / log(10) + 1:
                     temp.insert(i, temp.pop(i) ** temp.pop(i))
                     tempstr.insert(i, "(" + tempstr.pop(i) + " ^ " + tempstr.pop(i) + ")")
-                    if temp[i].denominator == 1:
+                    if temp[i].denominator == 1 and abs(temp[i]) <= upperlimit:
                       if str([(k.numerator, k.denominator) for k in temp]) not in answers:
                         heapq.heappush(queue, (score(tempstr), [(k.numerator, k.denominator) for k in temp]))
                         answers[str([(k.numerator, k.denominator) for k in temp])] = tempstr
@@ -204,9 +204,10 @@ for (queue, file) in queues:
                 tempstr = copy(stringrep)
                 temp.insert(i, temp.pop(i) * temp.pop(i))
                 tempstr.insert(i, "(" + tempstr.pop(i) + " * " + tempstr.pop(i) + ")")
-                if str([(k.numerator, k.denominator) for k in temp]) not in answers:
-                    heapq.heappush(queue, (score(tempstr), [(k.numerator, k.denominator) for k in temp]))
-                    answers[str([(k.numerator, k.denominator) for k in temp])] = tempstr
+                if abs(temp[i]) <= upperlimit:
+                    if str([(k.numerator, k.denominator) for k in temp]) not in answers:
+                        heapq.heappush(queue, (score(tempstr), [(k.numerator, k.denominator) for k in temp]))
+                        answers[str([(k.numerator, k.denominator) for k in temp])] = tempstr
                 # Subtraction
                 temp = copy(current)
                 tempstr = copy(stringrep)
