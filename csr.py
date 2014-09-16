@@ -84,6 +84,7 @@ for (queue, file) in queues:
                 queue.append(j)
             except:
                 pass
+    queue = [i for i in queue if len(i) != 1]
     for i in queue:
         answers[str([(l, 1) for l in i])] = ["(" + str(k) + ")" for k in i]
     i = 0
@@ -178,7 +179,8 @@ for (queue, file) in queues:
                    if abs(temp[i + 1]) * log(abs(temp[i].denominator)) / log(10) <= log(upperlimit) / log(10) + 1:
                     temp.insert(i, temp.pop(i) ** temp.pop(i))
                     tempstr.insert(i, "(" + tempstr.pop(i) + " ^ " + tempstr.pop(i) + ")")
-                    if str([(k.numerator, k.denominator) for k in temp]) not in answers:
+                    if temp[i].denominator == 1:
+                      if str([(k.numerator, k.denominator) for k in temp]) not in answers:
                         heapq.heappush(queue, (score(tempstr), [(k.numerator, k.denominator) for k in temp]))
                         answers[str([(k.numerator, k.denominator) for k in temp])] = tempstr
                 except BaseException as e:
@@ -221,3 +223,13 @@ for (queue, file) in queues:
                 if str([(k.numerator, k.denominator) for k in temp]) not in answers:
                     heapq.heappush(queue, (score(tempstr), [(k.numerator, k.denominator) for k in temp]))
                     answers[str([(k.numerator, k.denominator) for k in temp])] = tempstr
+
+#          else:
+#          ii += 1
+#        print "BUHLEETING"
+#        del queue
+#        print "PART A DONE"
+#        for i in copy(answers):
+#            if len(i) == iii:
+#                del answers[i]
+#        print "BUHLEETED"
