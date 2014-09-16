@@ -64,10 +64,11 @@ def gennegs(alist):
 queue = []
 for i in range(1, 10):
     for j in permutations(range(10), i):
+      if len(j) > 6:
+        print j
         for k in prodconcat(list(j)):
          try:
-           for l in gennegs(k):
-              if len(l) > 1:
+            for l in gennegs(k):
                if l[0] != 0:
                 queue = [[str(m) for m in l]]
                 while len(queue):
