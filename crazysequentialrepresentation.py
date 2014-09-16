@@ -2,7 +2,7 @@ from copy import deepcopy as copy
 from pickle import loads,dumps
 from math import log10
 
-upperlimit = 1000000
+upperlimit = 1000000000
 
 def is_square(i):
     if i < 2:
@@ -76,13 +76,19 @@ for (outputfilename, queue) in [("csrup.txt", [dumps(range(1,10))]), ("csrdown.t
     rofl = 0
     while len(queue):
 
-        current = loads(queue.pop())
+      current = loads(queue.pop())
+      good = True
+      for i in current:
+        if abs(i) > upperlimit:
+          good = False
+      if good:
+        print current
         heh = len(queue)
         alreadydone.add(dumps(current))
 
         for j in range(len(current) - 1):
             temp = copy(current)
-            if temp[j] > 0 and temp[j + 1] > 0 and temp[j + 1] * log10(temp[j]) <= log10(upperlimit):
+            if temp[j+1] < upperlimit and temp[j] > 0 and temp[j + 1] > 0 and temp[j + 1] * log10(temp[j]) <= log10(upperlimit):
                 temp.insert(j, temp.pop(j) ** temp.pop(j))
                 path[dumps(temp)] = path[dumps(current)]
                 if dumps(temp) not in alreadydone:
@@ -110,7 +116,7 @@ for (outputfilename, queue) in [("csrup.txt", [dumps(range(1,10))]), ("csrdown.t
 
         for j in range(len(current)):
             temp = copy(current)
-            if temp[i] == 0 or (temp[j] > 2 and temp[j] < 30):
+            if temp[j] == 0 or (temp[j] > 2 and temp[j] < 30):
                 temp.insert(j, fac(temp.pop(j)))
                 path[dumps(temp)] = path[dumps(current)]
                 if dumps(temp) not in alreadydone:
