@@ -191,9 +191,10 @@ for (queue, file) in queues:
                 try:
                     temp.insert(i, temp.pop(i) / temp.pop(i))
                     tempstr.insert(i, "(" + tempstr.pop(i) + " / " + tempstr.pop(i) + ")")
-                    if str([(k.numerator, k.denominator) for k in temp]) not in answers:
-                        heapq.heappush(queue, (score(tempstr), [(k.numerator, k.denominator) for k in temp]))
-                        answers[str([(k.numerator, k.denominator) for k in temp])] = tempstr
+                    if temp[i].denominator == 1:
+                        if str([(k.numerator, k.denominator) for k in temp]) not in answers:
+                            heapq.heappush(queue, (score(tempstr), [(k.numerator, k.denominator) for k in temp]))
+                            answers[str([(k.numerator, k.denominator) for k in temp])] = tempstr
                 except:
                     pass
                 # Multiplication
