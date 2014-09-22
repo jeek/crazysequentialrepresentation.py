@@ -82,7 +82,7 @@ for (outputfilename, queue) in [("csrup.txt", [dumps(range(1,10))]), ("csrdown.t
         if abs(i) > upperlimit:
           good = False
       if good:
-        print current
+#        print current
         heh = len(queue)
         alreadydone.add(dumps(current))
 
