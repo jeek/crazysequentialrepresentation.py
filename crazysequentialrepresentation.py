@@ -221,6 +221,9 @@ for (outputfilename, queue) in [("csrup.txt", [dumps(range(1,10))]), ("csrdown.t
             temp2 = loads(path[dumps(temp)])
             temp2.insert(j, "(" + str(temp2.pop(j)) + " + " + str(temp2.pop(j)) + ")")
             path[dumps(temp)] = dumps(temp2)
+        
+        if len(current) == 1:
+            print current[0], loads(path[dumps(current)])
 
     outputfile = open(outputfilename, "w")
     for i in path.keys():
