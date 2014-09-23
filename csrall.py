@@ -54,7 +54,8 @@ def prodconcat(alist):
     i = 0
     while i < len(answers):
         for j in range(len(eval(answers[i])) - 1):
-            temp = eval(answers[i])
+          temp = eval(answers[i])
+          if temp[j] != 0:
             temp.insert(j, int(str(temp.pop(j)) + str(temp.pop(j))))
             if str(temp) not in answers:
                 answers.append(str(temp))
