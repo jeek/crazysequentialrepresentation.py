@@ -88,9 +88,26 @@ for i in range(1, 10):
                 queue = [[str(m) for m in l]]
                 while len(queue):
                     current = queue.pop()
+#                    print current
                     seen.add(str([eval(o) for o in current]))
                     if len(current) == 1:
 #                        print current
+                        for m in range(len(current)):
+                            temp = copy(current)
+#                            print temp[m]
+                            if eval(temp[m]) > 1 and is_square(eval(temp[m])):
+                                temp.insert(m, "sqrt(" + temp.pop(m) + ")")
+                                queue.append(temp)
+                            temp = copy(current)
+                            if eval(temp[m]) < 30 and eval(temp[m]) >= 0 and eval(temp[m]) != 0 and eval(temp[m]) != 2 and eval(temp[m]) != 1:
+                                temp.insert(m, "fac(" + temp.pop(m) + ")")
+                                queue.append(temp)
+                        for m in range(len(current)):
+                            temp = copy(current)
+#                            print temp[m]
+                            if -eval(temp[m]) > 1 and is_square(-eval(temp[m])):
+                                temp.insert(m, "-sqrt(" + temp.pop(m) + ")")
+                                queue.append(temp)
                         crap = "".join([m for m in current[0] if m in "0123456789"])
                         while len(crap) > 0 and crap[0] == "0":
                             crap = crap[1:]
@@ -116,8 +133,14 @@ for i in range(1, 10):
                                 temp.insert(m, "sqrt(" + temp.pop(m) + ")")
                                 queue.append(temp)
                             temp = copy(current)
-                            if eval(temp[m]) < 30 and eval(temp[m]) >= 0 and eval(temp[m]) != 0 and eval(temp[m]) != 2 and eval(temp[m]) != 1:
+                            if eval(temp[m]) < 15 and eval(temp[m]) >= 0 and eval(temp[m]) != 0 and eval(temp[m]) != 2 and eval(temp[m]) != 1:
                                 temp.insert(m, "fac(" + temp.pop(m) + ")")
+                                queue.append(temp)
+                        for m in range(len(current)):
+                            temp = copy(current)
+#                            print temp[m]
+                            if -eval(temp[m]) > 1 and is_square(-eval(temp[m])):
+                                temp.insert(m, "-sqrt(" + temp.pop(m) + ")")
                                 queue.append(temp)
                         for m in range(len(current) - 1):
                             temp = copy(current)
@@ -134,8 +157,12 @@ for i in range(1, 10):
                             if eval(temp[m + 1]) >= 0:
                                 if eval(temp[m]) >= 1:
                                     if eval(temp[m + 1]) * log10(eval(temp[m])) <= log10(upperlimit):
-                                        temp.insert(m, "(" + temp.pop(m) + " ** " + temp.pop(m) + ")")
+                                        temp.insert(m, "((" + temp.pop(m) + ") ** (" + temp.pop(m) + "))")
                                         queue.append(temp)
+#                                    else:
+#                                        print temp
+#                                        temp.insert(m, "((" + temp.pop(m) + ") ** (" + temp.pop(m) + "))")
+#                                        queue.append(temp)
                             temp = copy(current)
                             temp.insert(m, "(" + temp.pop(m) + " * " + temp.pop(m) + ")")
                             queue.append(temp)
