@@ -116,7 +116,7 @@ for (queue, file) in queues:
                             j.insert(0, j.pop(0) + j.pop(0))
 #                        print i, j
                         if i == j:
-                            print "{", str(current[0][0]) + ": " + answers[str(current)][0] + "}\n",
+                            print "{" + str(current[0][0]) + ": " + answers[str(current)][0] + "}\n",
                             writefile.write("{"+str(current[0][0]) + ": " + answers[str(current)][0] + "}\n")
 #            print curscore, len(queue), current,
             current = [Fraction(i[0], i[1]) for i in current]
