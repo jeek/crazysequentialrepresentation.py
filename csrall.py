@@ -75,8 +75,10 @@ def gennegs(alist):
     return [eval(i) for i in list(set(answers))]
     
 queue = []
-for i in range(1, 10):
-    for j in permutations(range(10), i):
+#for i in range(1, 10):
+#    for j in permutations(range(10), i):
+j = ["7", "1"]
+if True:
       if len(j) > 1:
         seen = set()
         seen.add(str([k for k in j]))
@@ -88,7 +90,7 @@ for i in range(1, 10):
                 queue = [[str(m) for m in l]]
                 while len(queue):
                     current = queue.pop()
-#                    print current
+                    print current
                     seen.add(str([eval(o) for o in current]))
                     if len(current) == 1:
 #                        print current
@@ -114,8 +116,8 @@ for i in range(1, 10):
                         if len(crap) == 0:
                             crap = "0"
 #                        print current, "!!!", crap
-                        if str(eval(current[0])) == crap and str(current[0]) != crap:
-                            print eval(current[0]), current[0]
+                        if str(eval(current[0]))[::-1] == crap and str(current[0]) != crap:
+                            print str(eval(current[0])), current[0]
                             1/0
                     else:
                         for m in range(len(current) - 1):

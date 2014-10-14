@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-
+import sympy
+sympy.init_printing()
 upperlimit = 1000000000
 maxcrazy = 9
 
@@ -50,13 +51,15 @@ def score(entry):
 #     print entry, sum([abs(i[0]) + abs(i[1]) for i in entry])
     return len("".join([str(i) for i in entry]))
 queues = []
-for i in range(1, maxcrazy + 1):
-    for j in range(i + 1, maxcrazy + 1):
-        queues.append(([range(i, j + 1),], "upper.txt"))
-        queues.append(([range(j, i - 1, -1),], "lower.txt"))
-        
+#for i in range(1, maxcrazy + 1):
+#    for j in range(i + 1, maxcrazy + 1):
+#        queues.append(([range(i, j + 1),], "upper.txt"))
+#        queues.append(([range(j, i - 1, -1),], "lower.txt"))
+for i in range(10, 10000):
+    queues.append(([[int(j) for j in str(i)]], "new.txt"))        
 def queueslensort(queueitem):
     return len(queueitem[0][0])
+#print queues
 
 queues.sort(key=queueslensort)
 
@@ -116,7 +119,9 @@ for (queue, file) in queues:
                             j.insert(0, j.pop(0) + j.pop(0))
 #                        print i, j
                         if i == j:
-                            print "{" + str(current[0][0]) + ": " + answers[str(current)][0] + "}\n",
+                            print "{" + str(current[0][0]) + ": "
+                            print sympy.latex(answers[str(current)][0])
+                            print "}"
                             writefile.write("{"+str(current[0][0]) + ": " + answers[str(current)][0] + "}\n")
 #            print curscore, len(queue), current,
             current = [Fraction(i[0], i[1]) for i in current]
