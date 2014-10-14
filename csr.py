@@ -119,8 +119,8 @@ for (queue, file) in queues:
                             j.insert(0, j.pop(0) + j.pop(0))
 #                        print i, j
                         if i == j:
-                            print "{" + str(current[0][0]) + ": "
-                            print sympy.latex(answers[str(current)][0])
+                            print "{" + str(current[0][0]) + ": ",
+                            print sympy.latex(answers[str(current)][0]),
                             print "}"
                             writefile.write("{"+str(current[0][0]) + ": " + answers[str(current)][0] + "}\n")
 #            print curscore, len(queue), current,
