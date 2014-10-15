@@ -112,8 +112,7 @@ if __name__ == "__main__":
 #        seen = shelve.open("seen" + str(iii) + ".txt")
         seen = set()
         queue = []
-        forwards = False
-        backwards = False
+        answered = set()
         #shelve.open("queue" + str(iii) + ".txt")
         queues = [[[int(i) for i in str(iii)], [j for j in str(iii)]]]
         jj = 0
@@ -155,15 +154,10 @@ if __name__ == "__main__":
                         queue.append((str(k[0]), k[1]))
 #                        if len(eval(k[0])) == 1:
                         if len(k[1]) == 1:
-                            if not forwards and str(k[0][0]) == "".join([kk for kk in k[1][0] if kk in "0123456789"]):
-                                print k
-                                forwards = True
-                            if not backwards and str(k[0][0])[::-1] == "".join([kk for kk in k[1][0] if kk in "0123456789"]):
-                                print k
-                                backwards = True
-                            if forwards and backwards:
-                                queue = []
-                                results = []
+                            if str(k[0][0])[::-1] not in answered:
+                                if sorted(l for l in str(k[0][0])[::-1]) == sorted(m for m in "".join([kk for kk in k[1][0] if kk in "0123456789"])):
+                                    answered.add(str(k[0][0])[::-1])
+                                    print k
                     done = False
 #        seen.close()
 #        queue.close()
