@@ -20,6 +20,9 @@ def is_square(i):
             upper = sqrtp
     if sqrtp * sqrtp == i:
         return True
+    sqrtp += 1
+    if sqrtp * sqrtp == i:
+        return True
     return False
 
 def fac(i):
@@ -101,6 +104,7 @@ def recur(numbers, strings):
     return answers
 
 if __name__ == "__main__":
+    pool = Pool(processes = number_of_processes)
     iii = 10
     while iii < 1000000000:
 #    while iii < 40:
@@ -121,20 +125,19 @@ if __name__ == "__main__":
 #            print ii, jj
             queue[str(ii)] = jj
 #        queue[str([1,2,3,4,5,6,7,8,9])] = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        pool = Pool(processes = number_of_processes)
         done = False
         while not done:
 #            print iii, len(seen), "/", len(queue), "\r",
             done = True
             results = []
             for h in [i for i in queue if i not in seen][:number_of_processes ** 2]:
-                if h not in seen:
+#                if h not in seen:
                     seen[h] = True
                     results.append(pool.apply_async(recur, (h, queue[h])))
 #                del queue[h]
     #        print len(results)
-            for j in results:
-                for k in j.get():
+            while len(results):
+                for k in results.pop().get():
                     if str(k[0]) not in queue:
                         queue[str(k[0])] = k[1]
 #                        if len(eval(k[0])) == 1:
