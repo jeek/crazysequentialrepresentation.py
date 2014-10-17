@@ -105,8 +105,30 @@ def recur(numbers, strings):
 
 if __name__ == "__main__":
     pool = Pool(processes = number_of_processes)
-    iii = 10
-    while iii < 10 ** 10:
+    iiii = [str([1,2,3,4,5,6,7,8,9]), str([9,8,7,6,5,4,3,2,1,0])]
+    i = 0
+    while i < len(iiii):
+        current = eval(iiii[i])
+        for ii in range(len(current)):
+            temp = copy(current)
+            temp.pop(ii)
+            if len(temp) >= 2 and str(temp) not in iiii:
+                iiii.append(str(temp))
+        i += 1
+    iiii = [eval(i) for i in iiii]
+    i = 0
+    while i < len(iiii):
+        iiii[i] = [str(j) for j in iiii[i]]
+        iiii[i] = "".join(iiii[i])
+#        print iiii[i]
+        iiii[i] = eval(iiii[i])
+        i += 1
+    iiii.sort()
+    while iiii[0] < 10:
+        iiii.pop(0)
+#    iii = 10
+#    while iii < 10 ** 10:
+    for iii in iiii:
 #        print iii
 #    while iii < 40:
 #        seen = shelve.open("seen" + str(iii) + ".txt")
@@ -161,4 +183,3 @@ if __name__ == "__main__":
                     done = False
 #        seen.close()
 #        queue.close()
-        iii += 1
