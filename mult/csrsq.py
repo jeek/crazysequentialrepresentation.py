@@ -3,7 +3,7 @@ from copy import deepcopy as copy
 from multiprocessing import Pool
 import shelve
 upperlimit = 1000000000
-number_of_processes = 4
+number_of_processes = 1
 
 def is_square(i):
     if i < 2:
@@ -39,6 +39,7 @@ def recur(numbers, strings):
         # Unary Minus
         temp1 = copy(numbers)
         temp2 = copy(strings)
+#        print temp1, temp2, type(temp1), type(temp2)
         temp1.insert(i, temp1.pop(i) * -1)
         temp2.insert(i, "-(" + temp2.pop(i) + ")")
         answers.append((temp1, temp2))
@@ -105,11 +106,37 @@ def recur(numbers, strings):
 
 if __name__ == "__main__":
     pool = Pool(processes = number_of_processes)
-    iii = 10
-    for iii in [123456789, 987654321]:
+    iiii = [str([1,2,3,4,5,6,7,8,9]), str([9,8,7,6,5,4,3,2,1,0])]
+    i = 0
+    while i < len(iiii):
+        current = eval(iiii[i])
+        for ii in range(len(current)):
+            temp = copy(current)
+            temp.pop(ii)
+            if len(temp) >= 2 and str(temp) not in iiii:
+                iiii.append(str(temp))
+        i += 1
+    iiii = [eval(i) for i in iiii]
+    i = 0
+    while i < len(iiii):
+        iiii[i] = [str(j) for j in iiii[i]]
+        iiii[i] = "".join(iiii[i])
+#        print iiii[i]
+        iiii[i] = eval(iiii[i])
+        i += 1
+    iiii.sort()
+    while iiii[0] < 10:
+        iiii.pop(0)
+#    iii = 10
 #    while iii < 10 ** 10:
+    for iii in iiii:
+#        print iii
 #    while iii < 40:
         seen = shelve.open("seen" + str(iii) + ".txt")
+#        seen = set()
+#        queue = []
+#        answered = set()
+        answered = shelve.open("answered" + str(iii) + ".txt")
         queue = shelve.open("queue" + str(iii) + ".txt")
         queues = [[[int(i) for i in str(iii)], [j for j in str(iii)]]]
         jj = 0
@@ -125,6 +152,7 @@ if __name__ == "__main__":
         for (ii, jj) in queues:
 #            print ii, jj
             if len(ii) > 1:
+#                queue.append((str(ii), jj))
                 queue[str(ii)] = jj
 #        queue[str([1,2,3,4,5,6,7,8,9])] = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
         done = False
@@ -132,25 +160,31 @@ if __name__ == "__main__":
 #            print iii, len(seen), "/", len(queue), "\r",
             done = True
             results = []
-            for h in [i for i in queue if i not in seen][:1024]:
+#            while len(queue) > 0:
+#            for (h, i) in queue:
+#                (h, i) = queue.pop()
+#                if h not in seen:    
+            for h in [iiiii for iiiii in queue if iiiii not in seen][:1024]:
 #            for h in [i for i in queue if i not in seen][:number_of_processes ** 2]:
-#                if h not in seen:
+                if h not in seen:
                     seen[h] = True
+#                    seen.add(h)
+#                    print (h, i)
                     results.append(pool.apply_async(recur, (h, queue[h])))
-#                del queue[h]
+#                    del queue[h]
     #        print len(results)
             while len(results) > 0:
-                for k in results.pop().get():
+                for k in results.pop(0).get():
 #                    print k, [i for i in seen]
-                    if str(k[0]) not in queue:
+#                    if str(k[0]) not in queue:
+                    if True:
                         queue[str(k[0])] = k[1]
 #                        if len(eval(k[0])) == 1:
                         if len(k[1]) == 1:
-#                            if str(k[0][0]) == "".join([kk for kk in k[1][0] if kk in "0123456789"]):
-#                                print k
-#                            if str(k[0][0])[::-1] == "".join([kk for kk in k[1][0] if kk in "0123456789"]):
-                                print [k if k[0][0] >= 0 else ""]
+                            if str(k[0][0])[::-1] not in answered:
+                                if sorted(l for l in str(k[0][0])[::-1]) == sorted(m for m in "".join([kk for kk in k[1][0] if kk in "0123456789"])):
+                                    answered[str(k[0][0])[::-1]] = True
+                                    print k
                     done = False
-        seen.close()
-        queue.close()
-        iii += 1
+#        seen.close()
+#        queue.close()
