@@ -49,13 +49,13 @@ def recur(numbers, strings):
             temp1.insert(i, fac(temp1.pop(i)))
             temp2.insert(i, "(" + temp2.pop(i) + ")!")
             answers.append((temp1, temp2))
-        # Square Root
-        temp1 = copy(numbers)
-        temp2 = copy(strings)
-        if is_square(temp1[i]):
-            temp1.insert(i, int(temp1.pop(i) ** .5))
-            temp2.insert(i, "sqrt(" + temp2.pop(i) + ")")
-            answers.append((temp1, temp2))
+#        # Square Root
+#        temp1 = copy(numbers)
+#        temp2 = copy(strings)
+#        if is_square(temp1[i]):
+#            temp1.insert(i, int(temp1.pop(i) ** .5))
+#            temp2.insert(i, "sqrt(" + temp2.pop(i) + ")")
+#            answers.append((temp1, temp2))
     for i in range(len(numbers) - 1):
         # Addition
         temp1 = copy(numbers)
