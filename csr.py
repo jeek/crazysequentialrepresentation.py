@@ -102,8 +102,8 @@ for (queue, file) in queues:
 #        print i
 #    print queue
     heapq.heapify(queue)
-    tempscore = "BOP"
-    tempery = "STOP"
+    curscore = "BOP"
+    current = "STOP"
     if True:
         while len(queue) > 0:
 #          queue[ii:].sort()
