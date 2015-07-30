@@ -55,8 +55,11 @@ queues = []
 #    for j in range(i + 1, maxcrazy + 1):
 #        queues.append(([range(i, j + 1),], "upper.txt"))
 #        queues.append(([range(j, i - 1, -1),], "lower.txt"))
-for i in range(10, 10000):
-    queues.append(([[int(j) for j in str(i)]], "new.txt"))        
+#for i in range(10, 10000):
+#    queues.append(([[int(j) for j in str(i)]], "new.txt"))        
+queues.append(([1,2,3,4,5,6,7,8,9], "upper.txt"))
+queues.append(([9,8,7,6,5,4,3,2,1], "lower.txt"))
+
 def queueslensort(queueitem):
     return len(queueitem[0][0])
 #print queues
@@ -99,10 +102,15 @@ for (queue, file) in queues:
 #        print i
 #    print queue
     heapq.heapify(queue)
+    tempscore = "BOP"
+    tempery = "STOP"
     if True:
         while len(queue) > 0:
 #          queue[ii:].sort()
-            (curscore, current) = heapq.heappop(queue)
+            (tempscore, tempery) = heapq.heappop(queue)
+            while len(queue) > 0 and tempscore == curscore and tempery == current:
+                (tempscore, tempery) = heapq.heappop(queue)
+            (curscore, current) = (tempscore, tempery)
 #            print current
             try:
                 stringrep = answers[str(current)]
