@@ -57,8 +57,8 @@ queues = []
 #        queues.append(([range(j, i - 1, -1),], "lower.txt"))
 #for i in range(10, 10000):
 #    queues.append(([[int(j) for j in str(i)]], "new.txt"))        
-queues.append(([1,2,3,4,5,6,7,8,9], "upper.txt"))
-queues.append(([9,8,7,6,5,4,3,2,1], "lower.txt"))
+queues.append(([[1,2,3,4,5,6,7,8,9]], "upper.txt"))
+queues.append(([[9,8,7,6,5,4,3,2,1]], "lower.txt"))
 
 def queueslensort(queueitem):
     return len(queueitem[0][0])
