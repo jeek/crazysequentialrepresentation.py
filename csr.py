@@ -18,6 +18,23 @@ while len(factorials) < 30:
     factorials.append(factorials[-1] * len(factorials))
 print factorials
 
+def subsets(thelist, length = "ANY"):
+    result = list()
+    for i in copy(thelist):
+        result.append(i)
+    print result
+    i = 0
+    while i < len(result):
+        for j in xrange(len(result[i])):
+            current = copy(result[i])
+            current.pop(j)
+            if current not in result and len(current) > 0:
+                result.append(current)
+        i += 1
+    if length == "ANY":
+        return result[::-1]
+    return [i for i in result if len(i) == length]
+
 def donothingandlikeit(argument, otherargument = ""):
     pass
 
@@ -57,8 +74,9 @@ queues = []
 #        queues.append(([range(j, i - 1, -1),], "lower.txt"))
 #for i in range(10, 10000):
 #    queues.append(([[int(j) for j in str(i)]], "new.txt"))        
-queues.append(([[1,2,3,4,5,6,7,8,9]], "upper.txt"))
-queues.append(([[9,8,7,6,5,4,3,2,1]], "lower.txt"))
+#queues.append(subsets([[1,2,3,4,5,6,7,8,9]]), "upper.txt")))
+queues.append((subsets([[1,2,3,4,5,6,7,8,9]], 3), "upper.txt"))
+#queues.append(([[9,8,7,6,5,4,3,2,1]], "lower.txt"))
 
 def queueslensort(queueitem):
     return len(queueitem[0][0])
