@@ -73,8 +73,9 @@ queues = []
 #        queues.append(([range(i, j + 1),], "upper.txt"))
 #        queues.append(([range(j, i - 1, -1),], "lower.txt"))
 for i in range(10, 10000):
-    if sorted([int(j) for j in str(i)]) not in queues:
-        queues.append(([sorted([int(j) for j in str(i)])], "new.txt"))#queues.append(subsets([[1,2,3,4,5,6,7,8,9]]), "upper.txt")))
+    if ([sorted([int(j) for j in str(i)])], "new.txt") not in queues:
+        queues.append(([sorted([int(j) for j in str(i)])], "new.txt"))
+#queues.append(subsets([[1,2,3,4,5,6,7,8,9]]), "upper.txt")))
 #queues.append((subsets([[1,2,3,4,5,6,7,8,9]], 3), "upper.txt"))
 #queues.append(([[9,8,7,6,5,4,3,2,1]], "lower.txt"))
 
