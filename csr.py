@@ -18,6 +18,8 @@ while len(factorials) < 30:
     factorials.append(factorials[-1] * len(factorials))
 print factorials
 
+final = []
+
 def subsets(thelist, length = "ANY"):
     result = list()
     for i in copy(thelist):
@@ -146,9 +148,7 @@ for (queue, file) in queues:
                             j.insert(0, j.pop(0) + j.pop(0))
 #                        print i, j
                         if i == j:
-                            print "{" + str(current[0][0]) + ": ",
-                            print sympy.latex(answers[str(current)][0]),
-                            print "}"
+                            final.append((current[0][0], "{" + str(current[0][0]) + ": " + sympy.latex(answers[str(current)][0]) + "}"))
                             writefile.write("{"+str(current[0][0]) + ": " + answers[str(current)][0] + "}\n")
 #            print curscore, len(queue), current,
             current = [Fraction(i[0], i[1]) for i in current]
@@ -266,3 +266,4 @@ for (queue, file) in queues:
 #            if len(i) == iii:
 #                del answers[i]
 #        print "BUHLEETED"
+print "\n".join([i[1] for i in sorted(final)])
