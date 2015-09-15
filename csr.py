@@ -74,7 +74,7 @@ queues = []
 #    for j in range(i + 1, maxcrazy + 1):
 #        queues.append(([range(i, j + 1),], "upper.txt"))
 #        queues.append(([range(j, i - 1, -1),], "lower.txt"))
-for i in range(10, 10000):
+for i in range(1000, 10000):
     if ([sorted([int(j) for j in str(i)])], "new.txt") not in queues:
         queues.append(([sorted([int(j) for j in str(i)])], "new.txt"))
 #queues.append(subsets([[1,2,3,4,5,6,7,8,9]]), "upper.txt")))
@@ -96,13 +96,14 @@ for (queue, file) in queues:
         current = queue[i]
         for j in range(len(current) - 1):
             temp = copy(current)
-            temp.insert(j, int(str(temp.pop(j)) + str(temp.pop(j))))
-            good = True
-            for k in queue:
-                if dumps(k) == dumps(temp):
-                    good = False
-            if temp not in queue:
-                queue.append(temp)
+            if str(temp[j]) != "0":
+                temp.insert(j, int(str(temp.pop(j)) + str(temp.pop(j))))
+                good = True
+                for k in queue:
+                    if dumps(k) == dumps(temp):
+                        good = False
+                if good and temp not in queue:
+                    queue.append(temp)
         i += 1
     for i in range(maxcrazy):
         for j in copy(queue):
