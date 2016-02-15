@@ -151,7 +151,8 @@ if __name__ == "__main__":
 #                                print k
 #                            if str(k[0][0])[::-1] == "".join([kk for kk in k[1][0] if kk in "0123456789"]):
 ##                                print [k if k[0][0] >= 0 else ""]
-                                answers[k[0][0]] = k
+                                if (k[0][0] not in answers) or (len(answers[k[0][0]]) > len(str(k))):
+                                    answers[k[0][0]] = str(k)
                     done = False
         seen.close()
         queue.close()
