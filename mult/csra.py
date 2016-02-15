@@ -104,6 +104,7 @@ def recur(numbers, strings):
     return answers
 
 if __name__ == "__main__":
+    answers = dict()
     pool = Pool(processes = number_of_processes)
     iii = 10
     for iii in [123456789, 987654321]:
@@ -138,7 +139,7 @@ if __name__ == "__main__":
                     seen[h] = True
                     results.append(pool.apply_async(recur, (h, queue[h])))
 #                del queue[h]
-    #        print len(results)
+#            print len(results)
             while len(results) > 0:
                 for k in results.pop().get():
 #                    print k, [i for i in seen]
@@ -149,8 +150,13 @@ if __name__ == "__main__":
 #                            if str(k[0][0]) == "".join([kk for kk in k[1][0] if kk in "0123456789"]):
 #                                print k
 #                            if str(k[0][0])[::-1] == "".join([kk for kk in k[1][0] if kk in "0123456789"]):
-                                print [k if k[0][0] >= 0 else ""]
+##                                print [k if k[0][0] >= 0 else ""]
+                                answers[k[0][0]] = k
                     done = False
         seen.close()
         queue.close()
+        while len(answers) > 0:
+            temp = min(answers)
+            print answers[temp]
+            del answers[temp]
         iii += 1
