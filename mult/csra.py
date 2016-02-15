@@ -157,6 +157,7 @@ if __name__ == "__main__":
         queue.close()
         while len(answers) > 0:
             temp = min(answers)
-            print answers[temp]
+            if temp >= 0:
+                print answers[temp]
             del answers[temp]
         iii += 1
